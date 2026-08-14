@@ -52,7 +52,12 @@ esg-agentic-platform/
 ## Prerequisites
 
 - Python **3.10 or 3.11** (see `agents/pyproject.toml`)
-- An [OpenAI API key](https://platform.openai.com/api-keys) (the agents use GPT-4o-mini and OpenAI embeddings by default)
+- An [OpenAI API key](https://platform.openai.com/api-keys) — used by default (the agents run on GPT-4o-mini
+  with OpenAI embeddings). CrewAI is model-agnostic, so this is **not strictly required**: you can swap in
+  another LLM instead (e.g. Anthropic Claude, Google Gemini, Azure OpenAI, or a local model via
+  [Ollama](https://ollama.com/)). See [Configuration](#configuration) for how to change the model — note
+  that the PDF-search tool also uses an embedding model, so a provider offering embeddings (or a separate
+  embeddings key) is needed for that step.
 - A [Serper API key](https://serper.dev/) (for the internet-search tool)
 
 ## Setup
@@ -116,10 +121,19 @@ streamlit run streamlit_app.py
 
 ## Configuration
 
-- **Model:** All agents default to `gpt-4o-mini`. Change the `ChatOpenAI(model=...)` argument in
-  `agents/climate_agents.py` to use a different model.
+- **Model:** All agents default to `gpt-4o-mini` via `ChatOpenAI` in `agents/climate_agents.py`. CrewAI is
+  model-agnostic, so you can point the agents at a different LLM by replacing the `ChatOpenAI(...)` instance
+  passed to each agent's `llm=` argument. For example:
+  - **Anthropic Claude** — `from langchain_anthropic import ChatAnthropic; llm = ChatAnthropic(model="claude-sonnet-4-6")`
+  - **Google Gemini** — `from langchain_google_genai import ChatGoogleGenerativeAI; llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")`
+  - **Azure OpenAI** — `from langchain_openai import AzureChatOpenAI`
+
+  Install the matching LangChain integration package and set that provider's API key in your `.env`.
 - **Local models:** CrewAI supports local models via [Ollama](https://ollama.com/). Pass an Ollama
-  LLM instance to the `llm=` argument of an agent to run it locally.
+  LLM instance to the `llm=` argument of an agent to run it fully offline.
+- **Embeddings:** The PDF-search tool (`_pdf_search_tool` in `agents/climate_agents.py`) also uses an
+  embedding model — OpenAI's `text-embedding-3-small` by default. If you move off OpenAI entirely, update
+  the `embedder` config there to a provider your setup supports (e.g. Ollama or Google embeddings).
 
 ## Security
 
