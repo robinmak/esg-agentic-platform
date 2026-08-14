@@ -96,24 +96,12 @@ subdividing the 11 recommended disclosures into **29 fine-grained, individually-
   it is mentioned (e.g. *"Board oversight"* expands into criteria such as *"Process of reporting to the
   board on climate-related issues"* and *"Frequency of reporting to the board"*).
 
-```mermaid
-flowchart LR
-    subgraph CE [4 Core Elements]
-        G[Governance]
-        S[Strategy]
-        R[Risk Management]
-        M[Metrics &amp; Targets]
-    end
-    subgraph DI [11 Recommended Disclosures]
-        direction TB
-        DIx["Board oversight · Management's role<br/>Risks &amp; opportunities · Impact on strategy<br/>Resilience · Risk-ID processes · Risk mgmt<br/>Integration · Metrics · Scope 1&amp;2 · Targets"]
-    end
-    subgraph CR [29 Criteria]
-        direction TB
-        CRx["Fine-grained, measurable<br/>evaluation criteria —<br/>each scored 0–4"]
-    end
-    CE --> DI --> CR
-```
+![TCFD three-level hierarchy: 4 core elements map to 11 recommended disclosures, which expand into 29 recommended disclosure criteria](docs/images/tcfd-hierarchy.png)
+
+<sub>Structure of the TCFD framework — Core Elements → Recommended Disclosures → the 29 Criteria. Source:
+Doi, N., Oda, Y., Nakakubo, N., & Sugimoto, J. (2024). *Automated Determination of TCFD Recommended
+Disclosures through Zero-shot Text Classification Using Large Language Models.* Japan Exchange Group (JPX)
+Working Paper Vol. 43. See [References](#references).</sub>
 
 The number of criteria per core element is not uniform — it reflects how many measurable points each
 disclosure breaks into:
