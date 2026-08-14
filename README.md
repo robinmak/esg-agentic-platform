@@ -145,10 +145,13 @@ directory (not committed to the repository, as they are third-party copyrighted 
   Ashraf Vaghefi, S., Wang, Q., Webersinke, N., Wekhof, T., Yu, T., & Leippold, M. (2023).
   *CHATREPORT: Democratizing Sustainability Disclosure Analysis through LLM-based Tools.*
   [arXiv:2307.15770](https://arxiv.org/abs/2307.15770). — `CHATREPORT - Democratizing Sustainability Disclosure Analysis.pdf`
-- *Evaluating TCFD Reporting: A New Application of Zero-shot Analysis to Climate-related Financial
-  Disclosures.* — `Evaluating TCFD reporting - A new application of zero-shot analysis to climate-related financial disclosures.pdf`
-- Japan Exchange Group (JPX). *Automated Determination of TCFD Recommended Disclosures through Zero-shot
-  Text Classification Using LLMs.* — `JPX - Automated Determination of TCFD Recommended Disclosures through Zero-shot Text Classification Using LLMs.pdf`
+- Auzepy, A., Tönjes, E., Lenz, D., & Funk, C. (2023). *Evaluating TCFD Reporting: A New Application of
+  Zero-Shot Analysis to Climate-related Financial Disclosures.*
+  [arXiv:2302.00326](https://arxiv.org/abs/2302.00326). — `Evaluating TCFD reporting - A new application of zero-shot analysis to climate-related financial disclosures.pdf`
+- Japan Exchange Group (JPX) (2024, March 4). *Automated Determination of TCFD Recommended Disclosures
+  through Zero-shot Text Classification Using LLMs.*
+  [JPX news release](https://www.jpx.co.jp/english/corporate/news/news-releases/0010/20240304-01.html).
+  — `JPX - Automated Determination of TCFD Recommended Disclosures through Zero-shot Text Classification Using LLMs.pdf`
 
 **Datasets**
 
