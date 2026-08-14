@@ -27,6 +27,19 @@ Five specialized agents collaborate in a pipeline:
 The final output is a report containing per-criterion scores with justifications, aggregated
 disclosure-item scores, an overall score (0–116), and a letter grade.
 
+### Scoring & grading
+
+Each of the 29 TCFD recommended disclosure criteria is scored **0–4**, so the maximum overall score is
+`29 × 4 = 116`. Criterion scores are aggregated into the 11 recommended-disclosure-item scores, and the
+overall total maps to a letter grade using the scale in `tcfd_disclosure_grading.csv`:
+
+| Grade | Overall score |
+| --- | --- |
+| **A** | 87–116 |
+| **B** | 58–86 |
+| **C** | 29–57 |
+| **D** | 0–28 |
+
 ## Project structure
 
 ```
