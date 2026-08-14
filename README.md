@@ -124,11 +124,12 @@ streamlit run streamlit_app.py
 - **Model:** All agents default to `gpt-4o-mini` via `ChatOpenAI` in `agents/climate_agents.py`. CrewAI is
   model-agnostic, so you can point the agents at a different LLM by replacing the `ChatOpenAI(...)` instance
   passed to each agent's `llm=` argument. For example:
-  - **Anthropic Claude** — `from langchain_anthropic import ChatAnthropic; llm = ChatAnthropic(model="claude-sonnet-4-6")`
-  - **Google Gemini** — `from langchain_google_genai import ChatGoogleGenerativeAI; llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")`
+  - **Anthropic Claude** — `from langchain_anthropic import ChatAnthropic; llm = ChatAnthropic(model="<claude-model>")`
+  - **Google Gemini** — `from langchain_google_genai import ChatGoogleGenerativeAI; llm = ChatGoogleGenerativeAI(model="<gemini-model>")`
   - **Azure OpenAI** — `from langchain_openai import AzureChatOpenAI`
 
   Install the matching LangChain integration package and set that provider's API key in your `.env`.
+  Pick a current model name from your chosen provider's documentation.
 - **Local models:** CrewAI supports local models via [Ollama](https://ollama.com/). Pass an Ollama
   LLM instance to the `llm=` argument of an agent to run it fully offline.
 - **Embeddings:** The PDF-search tool (`_pdf_search_tool` in `agents/climate_agents.py`) also uses an
