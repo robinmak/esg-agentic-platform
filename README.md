@@ -14,6 +14,60 @@ evaluate the completeness and quality of climate-related financial disclosures a
 
 ## How it works
 
+### Architecture: RAG & multi-agent framework
+
+At a high level, the platform combines **retrieval-augmented generation (RAG)** over the company's
+documents with a **CrewAI multi-agent** assessment. Reports are embedded into a vector database; agents
+retrieve the relevant passages via semantic search and reason over them with an LLM to produce the
+assessment report:
+
+```mermaid
+flowchart LR
+    subgraph docs [Multi-documents]
+        D1[Sustainability report]
+        D2[Annual report]
+        D3[Quarterly filings]
+    end
+
+    D1 & D2 & D3 --> EMB["OpenAI embedding model<br/><code>text-embedding-3-small</code>"]
+    EMB --> VDB[("Vector database<br/>Chroma")]
+    VDB --> SS["Semantic search<br/>+ prompts with domain expertise"]
+    SS --> LLM["OpenAI chat model<br/><code>gpt-4o-mini-2024-07-18</code>"]
+
+    LLM --> CREW
+
+    subgraph CREW ["TCFD Disclosures Assessment (CrewAI)"]
+        direction TB
+        AG["<b>Climate Agents</b><br/>Data Analyst · Research Analyst<br/>Filings Analyst · Assessor · Grader<br/><i>+ Grading Moderator (planned)</i>"]
+        TK["<b>Tasks</b><br/>read criteria · sustainability analysis<br/>filings analysis · scoring · grading<br/><i>+ rubric design / moderation (planned)</i>"]
+        AG -. each agent runs its task .- TK
+    end
+
+    CREW --> RPT[[Assessment report]]
+
+    classDef store fill:#e3f2fd,stroke:#1565c0,color:#0d47a1;
+    classDef crew fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20;
+    class VDB store;
+    class AG,TK crew;
+```
+
+**Pipeline stages:**
+
+1. **Ingest** — the supplied report PDFs (sustainability, annual, and optionally quarterly filings) are the
+   source documents.
+2. **Embed** — text is converted to vectors with OpenAI's `text-embedding-3-small` model.
+3. **Store** — embeddings are held in a local **Chroma** vector database (created on first run under
+   `agents/db/`, which is git-ignored).
+4. **Retrieve** — for each question, semantic search pulls the most relevant passages; domain-expert prompts
+   frame the task for the LLM (this is the `PDFSearchTool` RAG step).
+5. **Reason** — the `gpt-4o-mini-2024-07-18` chat model answers grounded in the retrieved text.
+6. **Assess** — the CrewAI **agents** each execute their **task** in sequence (see the pipeline below),
+   producing the final **assessment report**.
+
+> The RAG models above are the defaults; see [Configuration](#configuration) to swap in another LLM or
+> embedding provider. The *Grading Moderator* agent and the *rubric-design* / *moderation* tasks shown as
+> "planned" are part of the intended design but are **not wired into the current pipeline**.
+
 Five specialized agents collaborate in a pipeline:
 
 | Agent | Role | Input |
