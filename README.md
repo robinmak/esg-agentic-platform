@@ -96,7 +96,10 @@ subdividing the 11 recommended disclosures into **29 fine-grained, individually-
   it is mentioned (e.g. *"Board oversight"* expands into criteria such as *"Process of reporting to the
   board on climate-related issues"* and *"Frequency of reporting to the board"*).
 
-![TCFD three-level hierarchy: 4 core elements map to 11 recommended disclosures, which expand into 29 recommended disclosure criteria](docs/images/tcfd-hierarchy.png)
+<p align="center">
+  <img src="docs/images/tcfd-hierarchy.png" width="640"
+       alt="TCFD three-level hierarchy: 4 core elements map to 11 recommended disclosures, which expand into 29 recommended disclosure criteria">
+</p>
 
 <sub>Structure of the TCFD framework — Core Elements → Recommended Disclosures → the 29 Criteria. Source:
 Doi, N., Oda, Y., Nakakubo, N., & Sugimoto, J. (2024). *Automated Determination of TCFD Recommended
