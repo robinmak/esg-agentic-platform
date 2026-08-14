@@ -27,19 +27,6 @@ Five specialized agents collaborate in a pipeline:
 The final output is a report containing per-criterion scores with justifications, aggregated
 disclosure-item scores, an overall score (0–116), and a letter grade.
 
-### Scoring & grading
-
-Each of the 29 TCFD recommended disclosure criteria is scored **0–4**, so the maximum overall score is
-`29 × 4 = 116`. Criterion scores are aggregated into the 11 recommended-disclosure-item scores, and the
-overall total maps to a letter grade using the scale in `tcfd_disclosure_grading.csv`:
-
-| Grade | Overall score |
-| --- | --- |
-| **A** | 87–116 |
-| **B** | 58–86 |
-| **C** | 29–57 |
-| **D** | 0–28 |
-
 ### The TCFD reference data
 
 The assessment is driven by three CSV files that ship with the repo. They encode the TCFD framework as a
@@ -96,11 +83,21 @@ flowchart TD
 3. **Filings Analyst** does the same against the **annual report**, so evidence is drawn from both document
    types.
 4. **Assessor Specialist** takes the gathered evidence and, using `tcfd_disclosure_rubric.csv`, scores each
-   of the 29 criteria **0–4** (grounded in the rubric's scoring method and sample answers, and critically
-   screening for greenwashing / unsubstantiated "cheap talk"), then aggregates them into the 11
-   disclosure-item scores.
-5. **Grading Expert** sums the item scores into an overall total (max 116) and maps it to a letter grade
-   using the bands in `tcfd_disclosure_grading.csv`.
+   of the 29 criteria **0–4**. For every criterion the rubric supplies three things — a *scoring definition*
+   (what to measure), a *scoring method* (how to map the evidence to a 0–4 score), and a *sample answer*
+   (the benchmark for full marks) — and the agent critically screens for greenwashing and unsubstantiated
+   "cheap talk". It then aggregates the criterion scores into the 11 disclosure-item scores.
+   *Input:* evidence from steps 2–3 + the rubric. *Output:* 29 criterion scores + 11 item aggregates.
+5. **Grading Expert** sums the 11 item scores into an overall total and maps it to a letter grade using the
+   bands in `tcfd_disclosure_grading.csv`. Because there are 29 criteria scored 0–4, the maximum total is
+   `29 × 4 = 116`. *Input:* the item scores + the grading bands. *Output:* the overall score and grade.
+
+   | Grade | Overall score |
+   | --- | --- |
+   | **A** | 87–116 |
+   | **B** | 58–86 |
+   | **C** | 29–57 |
+   | **D** | 0–28 |
 
 ## Project structure
 
