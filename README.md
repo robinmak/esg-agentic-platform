@@ -148,8 +148,9 @@ directory (not committed to the repository, as they are third-party copyrighted 
 - Auzepy, A., Tönjes, E., Lenz, D., & Funk, C. (2023). *Evaluating TCFD Reporting: A New Application of
   Zero-Shot Analysis to Climate-related Financial Disclosures.*
   [arXiv:2302.00326](https://arxiv.org/abs/2302.00326). — `Evaluating TCFD reporting - A new application of zero-shot analysis to climate-related financial disclosures.pdf`
-- Japan Exchange Group (JPX) (2024, March). *Automated Determination of TCFD Recommended Disclosures
-  through Zero-shot Text Classification Using LLMs.* JPX Working Paper Vol. 43.
+- Doi, N., Oda, Y., Nakakubo, N., & Sugimoto, J. (2024, March 4). *Automated Determination of TCFD
+  Recommended Disclosures through Zero-shot Text Classification Using Large Language Models.*
+  Japan Exchange Group (JPX) Working Paper Vol. 43.
   [PDF](https://www.jpx.co.jp/english/corporate/research-study/working-paper/JPXWP_Vol43e.pdf) ·
   [news release](https://www.jpx.co.jp/english/corporate/news/news-releases/0010/20240304-01.html).
   — `JPX - Automated Determination of TCFD Recommended Disclosures through Zero-shot Text Classification Using LLMs.pdf`
