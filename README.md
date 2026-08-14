@@ -99,6 +99,39 @@ flowchart TD
    | **C** | 29–57 |
    | **D** | 0–28 |
 
+### Scoring & grading rubric model
+
+The assessment escalates through three levels — a fine-grained **criterion score** rolls up into a
+**disclosure-item aggregate**, and the sum of all items maps to an overall **grade**:
+
+```mermaid
+flowchart LR
+    A["<b>Score (0–4 points)</b><br/>per TCFD Recommended<br/>Disclosure Criterion<br/><i>29 criteria</i>"]
+    B["<b>Aggregate Score</b><br/>per TCFD Recommended<br/>Disclosure Item<br/><i>11 items</i>"]
+    C["<b>Grade Scale</b><br/>overall total 0–116<br/><i>A · B · C · D</i>"]
+    M["<b>Grading Moderator</b><br/>peer-normalize vs comparable<br/>banks — by size &amp; HQ region<br/><i>(planned extension)</i>"]
+
+    A -- "sum criteria within each item" --> B
+    B -- "sum all 11 items → map to band" --> C
+    C -. "optional peer benchmarking" .-> M
+
+    classDef done fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20;
+    classDef grade fill:#e3f2fd,stroke:#1565c0,color:#0d47a1;
+    classDef plan fill:#fff8e1,stroke:#c8a020,color:#7a5c00,stroke-dasharray:5 3;
+    class A,B done;
+    class C grade;
+    class M plan;
+```
+
+- **Score (0–4)** — the Assessor grades each of the **29 criteria** against `tcfd_disclosure_rubric.csv`.
+- **Aggregate Score** — criterion scores are summed within each of the **11 disclosure items**.
+- **Grade Scale** — the Grading Expert totals the items (max 116) and assigns **A–D** per
+  `tcfd_disclosure_grading.csv`.
+- **Grading Moderator** *(planned, not yet in code)* — a further step that normalizes a company's grade
+  against comparable peers (e.g. by bank size and HQ region) using the moderating dataset in `references/`.
+  This mirrors the design in the [Auzepy et al. (2023)](https://arxiv.org/abs/2302.00326) reference but is
+  **not implemented** in the current 5-agent pipeline.
+
 ## Project structure
 
 ```
