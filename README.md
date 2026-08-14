@@ -345,6 +345,63 @@ streamlit run streamlit_app.py
   embedding model — OpenAI's `text-embedding-3-small` by default. If you move off OpenAI entirely, update
   the `embedder` config there to a provider your setup supports (e.g. Ollama or Google embeddings).
 
+## Vision & roadmap
+
+Today this project assesses **one company at a time** from a handful of uploaded PDFs. The vision is to
+scale it into an **enterprise-grade TCFD assessment platform** capable of continuously evaluating large
+portfolios of companies. Three pillars drive that scaling:
+
+```mermaid
+flowchart LR
+    NOW["<b>Today</b><br/>single-company assessment<br/>from uploaded PDFs<br/>OpenAI RAG + 5 CrewAI agents"]
+    NOW --> P1
+    NOW --> P2
+    NOW --> P3
+    P1["<b>1 · Unified RAG</b><br/>LLM + Knowledge Graph"]
+    P2["<b>2 · Agentic AI +</b><br/>Fast AI Inference"]
+    P3["<b>3 · SERP API</b><br/>live web retrieval"]
+    P1 & P2 & P3 --> ENT[["<b>Enterprise TCFD<br/>assessment at scale</b>"]]
+
+    classDef now fill:#eceff1,stroke:#546e7a,color:#263238;
+    classDef pil fill:#e3f2fd,stroke:#1565c0,color:#0d47a1;
+    class NOW now;
+    class P1,P2,P3 pil;
+```
+
+### 1. Unified RAG (LLM + Knowledge Graph)
+
+Move beyond flat vector search to a **unified RAG** layer that pairs the vector store with a **knowledge
+graph**. Modeling companies, reports, disclosures, metrics, and their relationships as a graph adds *deep,
+dynamic context* — enabling multi-hop questions ("compare Scope 1 targets across a company's last three
+reports", "which subsidiaries lack board-oversight disclosures?") and stronger grounding/traceability than
+embeddings alone. *Current state: single Chroma vector DB per run.*
+
+### 2. Agentic AI with fast AI inference
+
+The multi-agent pipeline is inference-heavy — every criterion involves retrieval plus LLM reasoning. Scaling
+to portfolios means optimizing for **throughput and latency**: routing work to fast-inference hardware
+(e.g. **LPU**-class accelerators alongside GPUs), batching agent calls, caching embeddings, and running
+company assessments in parallel. This keeps cost and turnaround viable when assessing hundreds of companies
+rather than one. *Current state: sequential agents on a single LLM endpoint.*
+
+### 3. Search Engine Results Page (SERP) API
+
+Broaden the evidence base from user-supplied PDFs to **live web retrieval** via a **SERP API** (Google,
+Bing, DuckDuckGo, Yandex, …), returning structured HTML/JSON. This lets agents automatically discover and
+pull the latest sustainability reports, filings, and news for any company — reducing manual document
+gathering and keeping assessments current. *Current state: a `Serper`-based `search_internet` tool exists in
+`agents/tools/search_tools.py` but is not yet part of the assessment pipeline.*
+
+### Other directions
+
+- **Grading Moderator** — implement the peer-normalization agent (by bank size / HQ region) shown as
+  "planned" in the diagrams above, using the moderating dataset.
+- **Multi-framework** — extend beyond TCFD to adjacent frameworks (ISSB/IFRS S2, ESRS, SASB).
+- **Batch & API** — a service/API mode for scheduled, portfolio-wide runs with persisted results.
+- **Human-in-the-loop review** — reviewer UI to accept/override agent scores before sign-off.
+
+> This roadmap is aspirational and describes intended direction, not shipped functionality.
+
 ## Security
 
 Do **not** commit API keys. Keys are read from a local `.env` file (ignored by git). If you ever expose a
