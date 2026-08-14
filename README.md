@@ -40,6 +40,68 @@ overall total maps to a letter grade using the scale in `tcfd_disclosure_grading
 | **C** | 29–57 |
 | **D** | 0–28 |
 
+### The TCFD reference data
+
+The assessment is driven by three CSV files that ship with the repo. They encode the TCFD framework as a
+three-level hierarchy — **Core Element → Recommended Disclosure Item → Recommended Disclosure Criterion** —
+plus the rules for scoring and grading:
+
+| File | What it defines | Consumed by |
+| --- | --- | --- |
+| `tcfd_disclosure_criteria.csv` | The TCFD framework itself: each Core Element, its 11 Recommended Disclosure Items, and the 29 fine-grained Criteria, each with definitions and guidelines. This is the **checklist** of what a company should disclose. | TCFD Data Analyst |
+| `tcfd_disclosure_rubric.csv` | For every criterion: a **scoring definition** (what to measure), a **scoring method** (how to assign 0–4), and a **sample answer** (the benchmark for full marks). This turns the checklist into a **gradebook**. | TCFD Disclosure Assessor Specialist |
+| `tcfd_disclosure_grading.csv` | The **grade bands** that map a total score (0–116) to a letter grade A–D. | TCFD Disclosure Grading Expert |
+
+So the criteria file says *what* to look for, the report PDFs supply *the evidence*, the rubric says *how
+to score each piece of evidence*, and the grading file says *how to turn the total into a grade*.
+
+### How the agents work together
+
+The five agents run as a **sequential pipeline** (defined in `main.py` / `streamlit_app.py`). Each agent's
+output becomes context for the ones after it, so knowledge flows left-to-right: the framework is loaded,
+evidence is gathered from two report sources, the evidence is scored against the rubric, and the scores are
+finally graded.
+
+```mermaid
+flowchart TD
+    subgraph inputs [Reference data & documents]
+        C[tcfd_disclosure_criteria.csv<br/>Core Element - Item - 29 Criteria]
+        R[tcfd_disclosure_rubric.csv<br/>scoring definition / method / sample]
+        G[tcfd_disclosure_grading.csv<br/>A-D grade bands]
+        SR[(Sustainability / TCFD report PDF)]
+        AR[(Annual report PDF)]
+    end
+
+    C --> A1[1 . TCFD Data Analyst<br/>loads &amp; explains the 29 criteria]
+    A1 -- criteria definitions --> A2[2 . Research Analyst<br/>extracts disclosures from sustainability report]
+    A1 -- criteria definitions --> A3[3 . Filings Analyst<br/>extracts disclosures from annual report]
+    SR --> A2
+    AR --> A3
+
+    A2 -- evidence per criterion --> A4[4 . Assessor Specialist<br/>scores each criterion 0-4 vs rubric]
+    A3 -- evidence per criterion --> A4
+    R --> A4
+
+    A4 -- 29 criterion scores<br/>+ 11 item aggregates --> A5[5 . Grading Expert<br/>totals score, assigns A-D]
+    G --> A5
+    A5 --> OUT[[TCFD assessment report<br/>scores + justifications + grade]]
+```
+
+**Step by step:**
+
+1. **TCFD Data Analyst** reads `tcfd_disclosure_criteria.csv` and produces a structured explanation of the
+   29 criteria and their definitions — establishing the shared checklist the downstream agents work against.
+2. **Research Analyst** searches the **sustainability / TCFD report** for disclosures that map to each
+   criterion, quoting the supporting text.
+3. **Filings Analyst** does the same against the **annual report**, so evidence is drawn from both document
+   types.
+4. **Assessor Specialist** takes the gathered evidence and, using `tcfd_disclosure_rubric.csv`, scores each
+   of the 29 criteria **0–4** (grounded in the rubric's scoring method and sample answers, and critically
+   screening for greenwashing / unsubstantiated "cheap talk"), then aggregates them into the 11
+   disclosure-item scores.
+5. **Grading Expert** sums the item scores into an overall total (max 116) and maps it to a letter grade
+   using the bands in `tcfd_disclosure_grading.csv`.
+
 ## Project structure
 
 ```
