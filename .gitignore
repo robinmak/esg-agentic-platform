@@ -1,0 +1,43 @@
+# ---- Secrets & environment ----
+.env
+.env.*
+!.env.example
+*/.env
+**/.env
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.python-version
+
+# ---- OS / editor cruft ----
+.DS_Store
+**/.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ---- Vector store / caches ----
+agents/db/
+**/chroma.sqlite3
+.cache/
+
+# ---- Large binaries: company reports & source documents ----
+# These are not redistributed. Place your own report PDFs locally (see README).
+*.pdf
+*.pptx
+*.docx
+
+# ---- Reference papers (copyrighted third-party material) ----
+references/
+
+# ---- Large moderating dataset ----
+agents/tcfd_disclosures_dataset*.csv

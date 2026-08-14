@@ -1,0 +1,10 @@
+crewai
+crewai-tools
+langchain
+langchain-openai
+langchain-community
+openai
+streamlit
+unstructured
+requests
+python-dotenv
