@@ -81,10 +81,60 @@ Five specialized agents collaborate in a pipeline:
 The final output is a report containing per-criterion scores with justifications, aggregated
 disclosure-item scores, an overall score (0–116), and a letter grade.
 
+### TCFD recommended disclosures & criteria
+
+The [TCFD](https://www.fsb-tcfd.org/) framework is organized as a three-level hierarchy. This project builds
+on it — following the approach in the JPX and TCFD reference documents (see [References](#references)) — by
+subdividing the 11 recommended disclosures into **29 fine-grained, individually-scorable criteria**:
+
+- **4 Core Elements** — the themes every organization should report on:
+  **Governance**, **Strategy**, **Risk Management**, and **Metrics & Targets**.
+- **11 Recommended Disclosures** — the specific disclosures TCFD recommends under those elements
+  (e.g. *"Board oversight"*, *"Management's role"* under Governance).
+- **29 Recommended Disclosure Criteria** ("the Criteria") — a more detailed, measurable breakdown of each
+  disclosure, so the assessment can evaluate *how well* each recommendation is met rather than just whether
+  it is mentioned (e.g. *"Board oversight"* expands into criteria such as *"Process of reporting to the
+  board on climate-related issues"* and *"Frequency of reporting to the board"*).
+
+```mermaid
+flowchart LR
+    subgraph CE [4 Core Elements]
+        G[Governance]
+        S[Strategy]
+        R[Risk Management]
+        M[Metrics &amp; Targets]
+    end
+    subgraph DI [11 Recommended Disclosures]
+        direction TB
+        DIx["Board oversight · Management's role<br/>Risks &amp; opportunities · Impact on strategy<br/>Resilience · Risk-ID processes · Risk mgmt<br/>Integration · Metrics · Scope 1&amp;2 · Targets"]
+    end
+    subgraph CR [29 Criteria]
+        direction TB
+        CRx["Fine-grained, measurable<br/>evaluation criteria —<br/>each scored 0–4"]
+    end
+    CE --> DI --> CR
+```
+
+The number of criteria per core element is not uniform — it reflects how many measurable points each
+disclosure breaks into:
+
+| Core Element | Recommended Disclosures | Criteria |
+| --- | :---: | :---: |
+| Governance | 2 | 7 |
+| Strategy | 3 | 10 |
+| Risk Management | 3 | 5 |
+| Metrics & Targets | 3 | 7 |
+| **Total** | **11** | **29** |
+
+Each criterion carries a **definition** (and guidance for financial vs. non-financial reporters) describing
+exactly what a compliant disclosure looks like — this is what the agents assess a company's reports against.
+The framework is also improved with pathways and guidance tailored to financial-sector and non-financial
+organizations for each disclosure item.
+
 ### The TCFD reference data
 
-The assessment is driven by three CSV files that ship with the repo. They encode the TCFD framework as a
-three-level hierarchy — **Core Element → Recommended Disclosure Item → Recommended Disclosure Criterion** —
+The assessment is driven by three CSV files that ship with the repo. They encode the TCFD framework as the
+same three-level hierarchy — **Core Element → Recommended Disclosure Item → Recommended Disclosure Criterion** —
 plus the rules for scoring and grading:
 
 | File | What it defines | Consumed by |
